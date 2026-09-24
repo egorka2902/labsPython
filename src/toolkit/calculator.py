@@ -36,4 +36,37 @@ def validate(toks):
 def calc(expr) -> float:
     toks = tok(expr)
     validate(toks)
+    prior = {'u+':3,'u-':3,'*':2,'/':2,'+':3,'-':3}
+    out,st = [],[]
+    for t in toks:
+        if t not in prior:
+            out.append(t)
+        else:
+            while st and prior.get(st[-1],0) >= prior[t] and not (t[0] == 'u') and (st[-1])[0] == 'u':
+                out.append(st.pop())
+            st.append(t)
 
+    out += st[::-1]
+    stack = []
+    for t in out:
+        if t[0] == 'u':
+            a = stack.pop()
+            stack.append(-a if t == 'u-' else a)
+        elif t in '+-/*':
+            b,a = stack.pop(),stack.pop()
+            if t == '+': stack.append(a+b)
+            if t == '-': stack.append(a-b)
+            if t == '*': stack.append(a*b)
+            if t == '/':
+                if b == 0: raise CalcErr('деление на 0')
+                stack.append(a/b)
+        else:
+            stack.append(float(t))
+    if len(stack) != 1:
+        raise CalcErr('неправильно выражение')
+    return stack[0]
+
+a = input()
+print(calc(a))
+                        
+                        
