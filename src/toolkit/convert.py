@@ -1,3 +1,5 @@
+class convErr(Exception):
+    pass
 
 def conv_t(val,f,t):
     if f == 'c':
@@ -24,3 +26,5 @@ def change(f,t, val):
         return float(val*mass[f]/mass[t])
     elif f in temp and t in temp:
         return float(conv_t(val,f,t))
+    else:
+        raise convErr('ошибка в единицах измерения')

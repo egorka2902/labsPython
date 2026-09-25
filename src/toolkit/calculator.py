@@ -78,8 +78,3 @@ def calc(expr) -> float:
     if len(stack) != 1:
         raise CalcErr('неправильно выражение')
     return stack[0]
-
-a = input()
-print(calc(a))
-                        
-                        
