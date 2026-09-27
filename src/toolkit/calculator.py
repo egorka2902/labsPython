@@ -38,7 +38,6 @@ def calc(expr) -> float:
     validate(toks)
     prior = {'u+': 4, 'u-': 4, '*': 3, '/': 3, '+': 2, '-': 2}
     out,st = [],[]
-    
     for t in toks:
         if t == '(':
             st.append(t)
@@ -59,7 +58,6 @@ def calc(expr) -> float:
         if op in ('(',')'):
             raise CalcErr('несогласованные скобки')
         out.append(op)
-
     stack = []
     for t in out:
         if t[0] == 'u':
