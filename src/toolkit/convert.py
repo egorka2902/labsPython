@@ -10,11 +10,14 @@ def conv_t(val,f,t):
         c = val - 273
 
     if t == 'c':
-        return c
+        if c >= -273: return c
+        if c < -273: raise convErr("ниже абсолютного нуля")
     elif t == 'f':
-        return c * 9 / 5 + 32
+        if c >= -459.67: return (c * 9 / 5 + 32)
+        if c < -459.67: raise convErr("ниже абсолютного нуля")
     elif t == 'k':
-        return c + 273
+        if c >= 0 :return c + 273
+        if c < 0: raise convErr("ниже абсолютного нуля")
 
 def change(f,t, val):
     length = {'mm':10**-3,'cm':10**-2,'m':10**0,'km':10**3}

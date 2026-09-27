@@ -15,8 +15,17 @@ def conv_expr(args):
     except Exception as err:
         print(err)
 
+def help_func(args):
+    print("Для вычисления выражения используйте: python -m toolkit calc \"Выражение\" \n Для конвертации используйте: python -m toolkit convert \"значение\" --from \"ед. измерения --to \"ед.измерения\" \"")
+
 def main():
-    parser = ArgumentParser(prog="toolkit")
+    parser = ArgumentParser(prog="toolkit",description="Утилита для вычислений и конвертации единиц измерения",
+        formatter_class=RawDescriptionHelpFormatter,epilog="""
+Примеры:
+  python -m toolkit calc "2 + 2 * 3"
+  python -m toolkit convert 100 --from c --to f
+  python -m toolkit convert 5 --from km --to m
+""")
 
     sub = parser.add_subparsers(dest='command', help='доступные команды')
 
@@ -29,8 +38,9 @@ def main():
     conv_p.add_argument("--from",dest='f', type = str,required=True)
     conv_p.add_argument("--to", dest='t', type = str,required=True)
     conv_p.set_defaults(func=conv_expr)
-    args= parser.parse_args()
 
+
+    args= parser.parse_args()
     if hasattr(args, 'func'):
         args.func(args)
     else:
@@ -38,5 +48,4 @@ def main():
     
 
 if __name__ == '__main__':
-    print('test')
     main()
