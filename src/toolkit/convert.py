@@ -7,11 +7,11 @@ def conv_t(val,f,t):
     elif f == 'f':
         c = (val - 32) * 5 / 9
     elif f == 'k':
-        c = val - 273
+        c = val - 273.15
 
     if t == 'c':
-        if c >= -273: return c
-        if c < -273: raise convErr("ниже абсолютного нуля")
+        if c >= -273.15: return c
+        if c < -273.15: raise convErr("ниже абсолютного нуля")
     elif t == 'f':
         if c >= -459.67: return (c * 9 / 5 + 32)
         if c < -459.67: raise convErr("ниже абсолютного нуля")
@@ -22,7 +22,7 @@ def conv_t(val,f,t):
 def change(f,t, val):
     length = {'mm':10**-3,'cm':10**-2,'m':10**0,'km':10**3}
     mass = {'g':1,'kg':1000}
-    temp = {'c':0,'f':32,'k':273}
+    temp = {'c':0,'f':32,'k':273.15}
     if f in length and t in length:
         if val >= 0 : return float(val*length[f]/length[t])
         if val < 0: raise convErr("Отрицательное значение не поддерживается")
