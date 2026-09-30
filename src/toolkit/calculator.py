@@ -1,7 +1,5 @@
 import re
-
-class CalcErr(Exception):
-    pass
+from tests.errors import CalcErr
 
 def tok(s: str):
     s = s.replace(' ','')

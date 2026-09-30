@@ -1,6 +1,6 @@
 from argparse import *
-from . import calculator as calculator
-from . import convert as convert
+import toolkit.calculator as calculator
+import toolkit.convert as convert
 import re
 
 def calc_exp(args):
@@ -16,16 +16,10 @@ def conv_expr(args):
         print(err)
 
 def help_func(args):
-    print("для вычисления выражения используйте: python -m toolkit calc \"Выражение\" \n Для конвертации используйте: python -m toolkit convert \"значение\" --from \"ед. измерения --to \"ед.измерения\" \"")
+    print("Для вычисления выражения используйте: python -m toolkit calc \"Выражение\" \n Для конвертации используйте: python -m toolkit convert \"значение\" --from \"ед. измерения --to \"ед.измерения\" \"")
 
 def main():
-    parser = ArgumentParser(prog="toolkit",description="утилита для вычислений и конвертации единиц измерения",
-        formatter_class=RawDescriptionHelpFormatter,epilog="""
-примеры:
-  python -m toolkit calc "2 + 2 * 3"
-  python -m toolkit convert 100 --from c --to f
-  python -m toolkit convert 5 --from km --to m
-""")
+    parser = ArgumentParser(prog="toolkit",description="Утилита для вычислений и конвертации единиц измерения")
 
     sub = parser.add_subparsers(dest='command', help='доступные команды')
 

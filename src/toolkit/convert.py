@@ -1,6 +1,4 @@
-class convErr(Exception):
-    pass
-
+from tests.errors import convErr
 def conv_t(val,f,t):
     if f == 'c':
         c = val
