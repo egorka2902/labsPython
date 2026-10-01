@@ -73,4 +73,4 @@ def calc(expr) -> float:
             stack.append(float(t))
     if len(stack) != 1:
         raise CalcErr('неправильно выражение')
-    return stack[0]
+    return round(stack[0],2)
