@@ -22,12 +22,12 @@ def change(f,t, val):
     mass = {'g':1,'kg':1000}
     temp = {'c':0,'f':32,'k':273.15}
     if f in length and t in length:
-        if val >= 0 : return float(val*length[f]/length[t])
+        if val >= 0 : return round(float(val*length[f]/length[t]),2)
         if val < 0: raise convErr("Отрицательное значение не поддерживается")
     elif f in mass and t in mass:
-        if val >= 0: return float(val*mass[f]/mass[t])
+        if val >= 0: return round(float(val*mass[f]/mass[t]),2)
         if val < 0: raise convErr("Отрицательное значение не поддерживается")
     elif f in temp and t in temp:
-        return float(conv_t(val,f,t))
+        return round(float(conv_t(val,f,t)),2)
     else:
         raise convErr('ошибка в единицах измерения')

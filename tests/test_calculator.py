@@ -54,36 +54,36 @@ def test_complex_expression():
 
 # плохие тесты
 
-def test_empty_expression():
+def test_empty():
     with pytest.raises(err):
         calc("")
 
 
-def test_only_spaces():
+def test_spaces():
     with pytest.raises(err):
         calc("   ")
 
 
-def test_invalid_character():
+def test_character():
     with pytest.raises(err):
         calc("2 + a")
 
 
-def test_missing_operand():
+def test_missing():
     with pytest.raises(err):
         calc("2 +")
 
 
-def test_two_operators_in_a_row():
+def test_two():
     with pytest.raises(err):
         calc("2 + * 3")
 
 
-def test_division_by_zero():
+def test_zero():
     with pytest.raises(err):
         calc("5 / 0")
 
 
-def test_starts_with_operator():
+def test_start():
     with pytest.raises((err, IndexError)):
         calc("* 5")
