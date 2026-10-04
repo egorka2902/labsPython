@@ -4,12 +4,14 @@ import toolkit.convert as convert
 import re
 
 def calc_exp(args):
+    """вызов calculator.py при calc  в аргументах строки"""
     try:
         print(calculator.calc(args.expression))
     except Exception as err:
         print(err, type(err))
 
 def conv_expr(args):
+    """вызов convert.py при convert  в аргументах строки"""
     try:
         print(convert.change(args.f,args.t, args.value))
     except Exception as err:
@@ -19,6 +21,7 @@ def help_func(args):
     print("Для вычисления выражения используйте: python -m toolkit calc \"Выражение\" \n Для конвертации используйте: python -m toolkit convert \"значение\" --from \"ед. измерения --to \"ед.измерения\" \"")
 
 def main():
+    """парсер входных данных CLI"""
     parser = ArgumentParser(prog="toolkit",description="Утилита для вычислений и конвертации единиц измерения")
 
     sub = parser.add_subparsers(dest='command', help='доступные команды')

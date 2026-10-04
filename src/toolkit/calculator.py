@@ -2,6 +2,7 @@ import re
 from tests.errors import CalcErr
 
 def tok(s: str):
+    """токенихация выражнния """
     s = s.replace(' ','')
     p = re.compile(r'\d+(?:\.\d+)?|[+\-*/()]')
     if not s:
@@ -23,6 +24,7 @@ def tok(s: str):
     return un_toks
 
 def validate(toks):
+    """проверка выражения на ошибки"""
     j = ('+','-','/','*')
     if not toks:
         raise CalcErr("пустой список токенов")
@@ -32,6 +34,7 @@ def validate(toks):
         if toks[i] in j and toks[i+1] in j:
             raise CalcErr(f"два оператора рядом: {toks[i]} и {toks[i+1]}")
 def calc(expr) -> float:
+    """вычисление с RPN и  использование токенизации и валидации"""
     toks = tok(expr)
     validate(toks)
     prior = {'u+': 4, 'u-': 4, '*': 3, '/': 3, '+': 2, '-': 2}

@@ -1,5 +1,6 @@
 from tests.errors import convErr
 def conv_t(val,f,t):
+    """конвертация температуры"""
     if f == 'c':
         c = val
     elif f == 'f':
@@ -18,6 +19,7 @@ def conv_t(val,f,t):
         if c < 0: raise convErr("ниже абсолютного нуля")
 
 def change(f,t, val):
+    """конвертация общая"""
     length = {'mm':10**-3,'cm':10**-2,'m':10**0,'km':10**3}
     mass = {'g':1,'kg':1000}
     temp = {'c':0,'f':32,'k':273.15}
