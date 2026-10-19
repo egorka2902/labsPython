@@ -1,0 +1,19 @@
+{
+  "levels": {
+    "INFO": 4,
+    "WARNING": 2,
+    "ERROR": 2,
+    "DEBUG": 2
+  },
+  "sources": {
+    "loader": 4,
+    "api": 4,
+    "db": 2
+  },
+  "top_sources": {
+    "db": 2,
+    "api": 4,
+    "loader": 4
+  },
+  "skipped": 0
+}

@@ -1,0 +1,5 @@
+{"timestamp":"2026-10-19T10:00:00+03:00","level":"INFO","source":"loader","message":"start reading"}
+{"timestamp":"2026-10-19T10:01:00+03:00","level":"WARNING","source":"api","message":"slow response"}
+{"timestamp":"2026-10-19T10:02:00+03:00","level":"ERROR","source":"db","message":"connection timeout"}
+{"timestamp":"2026-10-19T10:03:00+03:00","level":"INFO","source":"api","message":"request completed"}
+{"timestamp":"2026-10-19T10:04:00+03:00","level":"DEBUG","source":"loader","message":"buffer flushed"}

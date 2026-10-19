@@ -1,5 +1,5 @@
 
-from errors import InvalidEventError as err1
+from streamstats.errors import InvalidEventError as err1
 from datetime import *
 
 

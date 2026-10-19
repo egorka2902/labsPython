@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 @dataclass
 class Event:
-    """Модель события лога."""
+    """модель события лога"""
     timestamp: datetime  
     level: str 
     source: str      

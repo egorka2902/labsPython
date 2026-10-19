@@ -1,0 +1,16 @@
+pyproject.toml
+src/streamstats/__init__.py
+src/streamstats/__main__.py
+src/streamstats/errors.py
+src/streamstats/models.py
+src/streamstats/parsers.py
+src/streamstats/statistics.py
+src/streamstats/validate.py
+src/streamstats.egg-info/PKG-INFO
+src/streamstats.egg-info/SOURCES.txt
+src/streamstats.egg-info/dependency_links.txt
+src/streamstats.egg-info/entry_points.txt
+src/streamstats.egg-info/top_level.txt
+tests/test_errors.py
+tests/test_parsers.py
+tests/test_statistics.py
