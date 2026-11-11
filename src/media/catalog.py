@@ -1,4 +1,4 @@
-from .error import CatalogError,TypeError
+from .error import CatalogError,TypError
 
 
 from .models import MediaItem
@@ -10,7 +10,7 @@ class Catalog:
 
     def add(self, item):
         if not (isinstance(item,MediaItem)):
-            raise TypeError("объект класса не MediaItem")
+            raise TypError("объект класса не MediaItem")
         if item.item_id in self.items:
             raise CatalogError("id уже существует")
         self.items[item.item_id] = item
@@ -37,7 +37,7 @@ class Catalog:
     def find_by_name(self, name):
         res = []
         for item in self.items.values():
-            if name.lower() == item.name:
+            if name.lower() == (item.name).lower():
                 res.append(item)
         if len(res) == 0:
             raise CatalogError("0 совпадений по названиям")
