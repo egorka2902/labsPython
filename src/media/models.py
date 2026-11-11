@@ -25,5 +25,5 @@ class MediaItem:
         if not (isinstance(self.creator, str) and self.creator.strip()):
             raise err("пустой создатель")
         if not (type(self.duration) is int and self.duration > 0):
-            raise err("пустая категория")
+            raise err("неправильный формат длительности")
         

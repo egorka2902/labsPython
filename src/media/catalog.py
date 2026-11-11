@@ -24,7 +24,7 @@ class Catalog:
         if itemid not in self.items:
             raise CatalogError("объекта не существует")
         del self.items[itemid]
-    def find_cat(self, cat):
+    def find_by_category(self, cat):
         res = []
         for item in self.items.values():
             if cat.lower() == item.category:
@@ -34,7 +34,7 @@ class Catalog:
             raise CatalogError("0 совпадений по категориям")
         return res
 
-    def find_name(self, name):
+    def find_by_name(self, name):
         res = []
         for item in self.items.values():
             if name.lower() == item.name:
