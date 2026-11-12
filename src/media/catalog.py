@@ -1,7 +1,7 @@
-from .error import CatalogError,TypError
+from .error import CatalogError,CatalogTypeError,NotFoundErr,FileErr,DublicateError
+import json, os
 
-
-from .models import MediaItem
+from .models import MediaItem, FORMAT_VERSION
 
 
 class Catalog:
@@ -10,9 +10,9 @@ class Catalog:
 
     def add(self, item):
         if not (isinstance(item,MediaItem)):
-            raise TypError("объект класса не MediaItem")
+            raise CatalogTypeError("объект класса не MediaItem")
         if item.item_id in self.items:
-            raise CatalogError("id уже существует")
+            raise DublicateError("id уже существует")
         self.items[item.item_id] = item
 
     def get(self, itemid):
@@ -27,7 +27,7 @@ class Catalog:
     def find_by_category(self, cat):
         res = []
         for item in self.items.values():
-            if cat.lower() == item.category:
+            if cat.lower() == item.category.lower():
                 res.append(item)
 
         if len(res) == 0:
@@ -37,7 +37,7 @@ class Catalog:
     def find_by_name(self, name):
         res = []
         for item in self.items.values():
-            if name.lower() == (item.name).lower():
+            if name.lower() == item.name.lower():
                 res.append(item)
         if len(res) == 0:
             raise CatalogError("0 совпадений по названиям")
@@ -51,3 +51,41 @@ class Catalog:
 
     def __contains__(self, item_id):
         return item_id in self.items
+
+    def save(self, path):
+        data = {"format_version" : FORMAT_VERSION, "items": [item.to_dict() for item in self.items.values()]}
+        try:
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(data,f, ensure_ascii=False, indent=2)#ensure_ascii норм чтение, indent отступы для читаемости
+        except FileNotFoundError as e:
+            raise NotFoundErr("файл не найден")
+    def load(self, path):
+        data = {"format_version" : FORMAT_VERSION, "items": [item.to_dict() for item in self.items.values()]}
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except FileNotFoundError as e:
+            raise NotFoundErr("файл не найден")
+        except json.JSONDecodeError as e:
+            raise FileErr("нечитаемый файл")
+        if data.get("format_version") != FORMAT_VERSION:
+            raise FileErr("неправильная версия")
+        if not isinstance(self,dict):
+            CatalogTypeError("не словарь")
+
+        items_dict = data.get("items")
+        if items_dict is None:
+            raise CatalogTypeError("нету items")
+        if not isinstance(items_dict, list):
+            raise CatalogTypeError("items не список")
+        nrw_items = {}
+
+        for i, raw in enumerate(items_dict):
+            try:
+                item = MediaItem.fromdict(raw)
+            except CatalogError as err:
+                raise CatalogTypeError("невалидный объект")
+            if item.item_id in nrw_items:
+                raise DublicateError(f"дубликат id: {item.item_id}")
+            nrw_items[item.item_id] = item
+        self.items = nrw_items

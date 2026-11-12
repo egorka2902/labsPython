@@ -1,5 +1,13 @@
 class CatalogError(Exception):
     pass
 
-class TypError(Exception):
+class CatalogTypeError(Exception):
+    pass
+
+class DublicateError(Exception):
+    pass
+class NotFoundErr(Exception):
+    pass
+
+class FileErr(Exception):
     pass

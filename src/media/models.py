@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from .error import CatalogError as err
-
+FORMAT_VERSION = 1
 @dataclass
 class MediaItem:
     item_id: str
@@ -26,4 +26,29 @@ class MediaItem:
             raise err("пустой создатель")
         if not (type(self.duration) is int and self.duration > 0):
             raise err("неправильный формат длительности")
-        
+    def todict(self):
+        return {
+            "item_id": self.item_id,
+            "name": self.name,
+            "category": self.category,
+            "year": self.year,
+            "mediatype": self.mediatype,
+            "creator": self.creator,
+            "duration": self.duration,
+        }
+    def fromdict(cls,raw):
+        fields = ("item_id", "name", "category", "year", "mediatype", "creator", "duration")
+        if not isinstance(raw, dict):
+            raise TypeError("Не словарь")
+        for field in raw:
+            if field not in fields:
+                raise TypeError(f"не существующее поле {field}")
+        return cls(
+            item_id=raw["item_id"],
+            name=raw["name"],
+            category=raw["category"],
+            year=raw["year"],
+            mediatype=raw["mediatype"],
+            creator=raw["creator"],
+            duration=raw["duration"],
+        )
