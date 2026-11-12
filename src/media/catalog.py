@@ -17,7 +17,7 @@ class Catalog:
 
     def get(self, itemid):
         if itemid not in self.items:
-            raise CatalogError("id не найден")
+            raise NotFoundErr("id не найден")
         return self.items[itemid]
 
     def remove(self, itemid):
@@ -37,7 +37,7 @@ class Catalog:
     def find_by_name(self, name):
         res = []
         for item in self.items.values():
-            if name.lower() == item.name.lower():
+            if name.lower() in item.name.lower():
                 res.append(item)
         if len(res) == 0:
             raise CatalogError("0 совпадений по названиям")
@@ -53,14 +53,14 @@ class Catalog:
         return item_id in self.items
 
     def save(self, path):
-        data = {"format_version" : FORMAT_VERSION, "items": [item.to_dict() for item in self.items.values()]}
+        data = {"format_version" : FORMAT_VERSION, "items": [item.todict() for item in self.items.values()]}
         try:
             with open(path, "w", encoding="utf-8") as f:
                 json.dump(data,f, ensure_ascii=False, indent=2)#ensure_ascii норм чтение, indent отступы для читаемости
         except FileNotFoundError as e:
             raise NotFoundErr("файл не найден")
     def load(self, path):
-        data = {"format_version" : FORMAT_VERSION, "items": [item.to_dict() for item in self.items.values()]}
+        
         try:
             with open(path, "r", encoding="utf-8") as f:
                 data = json.load(f)
@@ -68,10 +68,10 @@ class Catalog:
             raise NotFoundErr("файл не найден")
         except json.JSONDecodeError as e:
             raise FileErr("нечитаемый файл")
+        if not isinstance(data,dict):
+            raise CatalogTypeError("не словарь")
         if data.get("format_version") != FORMAT_VERSION:
             raise FileErr("неправильная версия")
-        if not isinstance(self,dict):
-            CatalogTypeError("не словарь")
 
         items_dict = data.get("items")
         if items_dict is None:

@@ -36,12 +36,13 @@ class MediaItem:
             "creator": self.creator,
             "duration": self.duration,
         }
+    @classmethod
     def fromdict(cls,raw):
         fields = ("item_id", "name", "category", "year", "mediatype", "creator", "duration")
         if not isinstance(raw, dict):
             raise TypeError("Не словарь")
         for field in raw:
-            if field not in fields:
+            if field not in raw:
                 raise TypeError(f"не существующее поле {field}")
         return cls(
             item_id=raw["item_id"],
