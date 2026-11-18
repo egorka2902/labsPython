@@ -4,7 +4,7 @@ from pathlib import Path
 from streamstats.models import Event
 from streamstats.validate import validate_csv
 from datetime import datetime
-
+from streamstats.errors import InvalidEventError
 
 def parse_csv(path):
     path = Path(path)
@@ -22,8 +22,12 @@ def parse_csv(path):
 def jsonl_reader(file):
     for line in file:
         line = line.strip()
-        if line:  
-            yield json.loads(line)
+        if line: 
+            try: 
+                yield json.loads(line)
+            except json.JSONDecodeError as e:
+                raise InvalidEventError(f"невалидная строка {e}")
+                continue
 
 def parse_jsonl(path):
     path = Path(path)

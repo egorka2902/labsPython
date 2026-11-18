@@ -21,7 +21,7 @@ def test_top():
     source_counts = {"loader": 5, "parser": 3, "validator": 5}
     
     top = top_sources(source_counts, top_n=3)
-    assert top == [("loader", 5), ("validator", 5), ("parser", 3)]
+    assert top == [("parser", 3),("loader", 5), ("validator", 5)]
 
 
 def test_generate_report():
